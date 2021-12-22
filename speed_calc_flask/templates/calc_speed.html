@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Speed calculator</title>
+</head>
+<body>
+    <div class='container' style="padding-top: 50px;">
+        <h1> Calculator Page </h1>
+        <form method="post" action="/">
+            <div class="col-sm-6">            
+            <input type="number" class="form-control" name="distance" value={{distance}} >            
+            </div> 
+            <br>
+        
+            <div class="col-sm-6">            
+            <input type="number" class="form-control" name="time" value={{time}}>
+            </div>
+            <br>
+            <div class="col-sm-6"> 
+            <button type="submit" class="btn btn-primary">Calculate Speed</button>
+            </div>
+            <div>
+                <p style="font-weight:bold; font-size:30px; color: green">Speed = {{speed}} km/h</p>
+            </div>
+        
+        
+        </form>
+
+
+    </div>  
+
+    
+</body>
+</html>

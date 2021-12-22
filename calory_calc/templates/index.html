@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Calory Calculator</title>
+</head>
+<body>
+
+<div class="container">
+
+
+    <form method="post" action="/">
+        <div class="calc">
+
+
+            <div class="calc__line"></div>
+    
+            <div class="calc__title">Ваш пол:</div>
+    
+            <div class="calc__flex">
+    
+                <input class="calc__radio" type="radio" name="calc_sex" id="calc_sex_m" value="1">
+                <label class="calc__label" for="calc_sex_m">Мужской</label>
+    
+                <input class="calc__radio" type="radio" name="calc_sex" id="calc_sex_f" value="2">
+                <label class="calc__label" for="calc_sex_f">Женский</label>
+    
+            </div>
+    
+            <div class="calc__flex">
+    
+                <div class="calc__part">
+                    <div class="calc__title">Ваш возраст:</div>
+                    <input id="calc_age" class="calc__input" type="text" name='age' placeholder="" value={{age}}>
+                </div>
+    
+                <div class="calc__part">
+                    <div class="calc__title">Ваш рост, см:</div>
+                    <input id="calc_hei" class="calc__input" type="text" name="height" placeholder="" value={{height}}>
+                </div>
+    
+                <div class="calc__part">
+                    <div class="calc__title">Ваш вес, кг:</div>
+                    <input id="calc_wei" class="calc__input" type="text" name="weight" placeholder="" value={{weight}}>
+                </div>
+    
+            </div>
+    
+            <div class="calc__title">Ваш образ жизни:</div>
+            
+                <div class="row justify-content-md">
+                    <div class="col col-lg-4">
+                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="life" id='life' value={{life}}>
+                            <option selected>Выбрать из выпадающего списка</option>
+                            <option value="1.2">Малоподвижный</option>
+                            <option value="1.375">Тренировки 1-2 раза в неделю</option>
+                            <option value="1.4625">Тренировки 3-4 раза в неделю</option> 
+                            <option value="1.55">Интенсивные тренировки 4-5 раз в неделю</option>
+                            <option value="1.6375">Ежедневные тренировки</option>
+                            <option value="1.725">Ежедневные интенсивные тренировки дважды в день</option>
+                            <option value="1.9">Экстремальные нагрузки, тяжёлая физическая работа</option>
+                        </select>
+                    </div>	
+                </div>
+                  
+            </div>		
+            <div class="calc__title">Ваша цель:</div>
+    
+            <div class="calc__flex">
+    
+                <input class="calc__radio" type="radio" name="calc_goal" id="calc_goal_1" value="1">
+                <label class="calc__label calc__label--big" for="calc_goal_1">Сбросить вес</label>
+    
+                <input class="calc__radio" type="radio" name="calc_goal" id="calc_goal_2" value="2">
+                <label class="calc__label calc__label--big" for="calc_goal_2">Набрать мышечную массу</label>
+    
+                <input class="calc__radio" type="radio" name="calc_goal" id="calc_goal_3" value="3">
+                <label class="calc__label calc__label--big" for="calc_goal_3">Поддерживать вес</label>
+    
+            </div>
+    
+            <div class="calc__line"></div>
+    
+            <div class="calc__warning">Пожалуйста заполните все поля</div>
+    
+            <button type="submit" id="calc_btn" class="calc__btn">Рассчитать</button>
+          
+          <div class="col col-lg-6">  
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  {{ message }}
+                </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}    
+          </div>
+
+        </div>
+    
+        <style>
+    
+    
+    
+    
+            @media (max-width: 380px) {
+              .calc {
+                padding: 40px 20px 70px 20px;
+              }
+            }
+    
+            .calc__head {
+              font-size: 26px;
+              margin: 0 0 40px 0;
+              text-align: center;
+              text-transform: uppercase;
+              letter-spacing: 1px;
+              font-size: 22px;
+            }
+    
+            .calc__title {
+              margin: 20px 0 20px 0;
+              font-size: 18px;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__title {
+                text-align: center;
+              }
+            }
+    
+            .calc__title--itog {
+              color: #fff;
+              font-size: 20px;
+            }
+    
+            .calc__flex {
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -ms-flex-wrap: wrap;
+                  flex-wrap: wrap;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__flex {
+                -webkit-box-pack: center;
+                    -ms-flex-pack: center;
+                        justify-content: center;
+              }
+            }
+    
+            .calc__radio {
+              display: none;
+            }
+    
+            .calc__radio:checked + .calc__label {
+              border: 2px solid #157ED2;
+              background: #d9f1ff;
+            }
+    
+            .calc__label {
+              display: block;
+              width: 110px;
+              height: 60px;
+              background: #fff;
+              border: 1px solid #ddd;
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-pack: center;
+                  -ms-flex-pack: center;
+                      justify-content: center;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              cursor: pointer;
+              border-radius: 4px;
+              margin: 0 10px 10px 0;
+              -webkit-user-select: none;
+                 -moz-user-select: none;
+                  -ms-user-select: none;
+                      user-select: none;
+              -webkit-transition-duration: 0.2s;
+                      transition-duration: 0.2s;
+              text-align: center;
+              padding: 10px;
+              line-height: 1.4;
+              letter-spacing: 0.5px;
+            }
+    
+            .calc__label--big {
+              height: 100px;
+              width: 150px;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__label--big {
+                width: 100%;
+                height: auto;
+                margin: 0 0 10px 0;
+              }
+            }
+    
+            .calc__label:hover {
+              -webkit-transform: translateY(-3px);
+                      transform: translateY(-3px);
+            }
+    
+            .calc__part {
+              margin: 0 20px 0 0;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__part {
+                margin: 0;
+                width: 100%;
+                position: relative;
+              }
+            }
+    
+            .calc__input {
+              background: #fff;
+              border: 1px solid #ddd;
+              -webkit-transition-duration: 0.4s;
+                      transition-duration: 0.4s;
+              border-radius: 4px;
+              height: 42px;
+              width: 170px;
+              padding: 0 10px;
+              font-size: 18px;
+              outline: none;
+              margin: 0 0 10px 0;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__input {
+                width: 100%;
+                position: relative;
+              }
+            }
+    
+            .calc__input:focus {
+              border: 2px solid #157ED2;
+            }
+    
+            .calc__select {
+              background: #fff;
+              border: 1px solid #ddd;
+              -webkit-transition-duration: 0.4s;
+                      transition-duration: 0.4s;
+              border-radius: 4px;
+              height: 42px;
+              width: 300px;
+              position: relative;
+              cursor: pointer;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__select {
+                width: 100%;
+              }
+            }
+    
+            .calc__select::before {
+              content: "▼";
+              position: absolute;
+              right: 10px;
+              top: 0;
+              height: 38px;
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              color: #aaa;
+            }
+    
+            .calc__select--open::before {
+              content: "▲";
+              position: absolute;
+              right: 10px;
+              top: 0;
+              height: 38px;
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              color: #aaa;
+            }
+    
+            .calc__current {
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              padding: 0 10px;
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              -webkit-user-select: none;
+                 -moz-user-select: none;
+                  -ms-user-select: none;
+                      user-select: none;
+            }
+    
+            .calc__list {
+              display: none;
+              position: absolute;
+              top: 42px;
+              background: #fff;
+              width: 100%;
+              padding: 15px 0 30px 0;
+              border-left: 1px solid #ddd;
+              border-right: 1px solid #ddd;
+              border-bottom: 1px solid #ddd;
+              border-radius: 0 0 4px 4px;
+              z-index: 29;
+            }
+    
+            .calc__list--open {
+              display: block;
+            }
+    
+            .calc__li {
+              margin: 1px 0;
+              padding: 8px 10px;
+              cursor: pointer;
+            }
+    
+            .calc__li:hover {
+              background: #eee;
+            }
+    
+            .calc__btn {
+              margin: 40px 0;
+              width: 200px;
+              height: 50px;
+              background: #FDD922;
+              font-size: 18px;
+              text-transform: uppercase;
+              -webkit-user-select: none;
+                 -moz-user-select: none;
+                  -ms-user-select: none;
+                      user-select: none;
+              border-radius: 4px;
+              display: -webkit-box;
+              display: -ms-flexbox;
+              display: flex;
+              -webkit-box-align: center;
+                  -ms-flex-align: center;
+                      align-items: center;
+              -webkit-box-pack: center;
+                  -ms-flex-pack: center;
+                      justify-content: center;
+              letter-spacing: 0.5px;
+              cursor: pointer;
+              -webkit-transition-duration: 0.3s;
+                      transition-duration: 0.3s;
+              -webkit-box-shadow: 0 1px 1px #bbb;
+                      box-shadow: 0 1px 1px #bbb;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__btn {
+                margin: 40px auto;
+              }
+            }
+    
+            .calc__btn:hover {
+              -webkit-transform: translateY(-3px);
+                      transform: translateY(-3px);
+              opacity: 0.9;
+            }
+    
+            .calc__btn:active {
+              opacity: 0.2;
+            }
+    
+            .calc__line {
+              border-top: 1px dashed #ddd;
+              height: 1px;
+              width: 100%;
+              position: relative;
+              margin: 30px 0;
+            }
+    
+            .calc__itog {
+              position: relative;
+              width: 100%;
+              min-height: 200px;
+              background: #157ED2;
+              border-radius: 4px;
+              padding: 10px 20px 40px 20px;
+              display: none;
+            }
+    
+            @media (max-width: 440px) {
+              .calc__itog {
+                margin: 10px 10px 40px 10px;
+              }
+            }
+    
+            .calc__itog--show {
+              display: block;
+            }
+    
+            .calc__warning {
+              color: #ff4400;
+              font-weight: 600;
+              font-size: 18px;
+              margin: 0px 0;
+              display: none;
+            }
+    
+            .calc__warning--show {
+              display: block;
+            }
+    
+            .calc__formula {
+              color: #ffffff;
+              margin: 10px 0;
+            }
+    
+            .calc__formula--text {
+              font-style: italic;
+              letter-spacing: 0.5px;
+            }
+    
+        </style>
+    </form>
+    
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
